@@ -1,0 +1,42 @@
+Algorithme "Exercice 1 - Le nombre mystérieux"
+Variable : Numérique : SecretNB, i, Propo
+           CC : Saisie
+           Booléen : Win
+Début
+    SecretNB <-- Nombre alétoire entre 1 et 100
+
+    Afficher "Bienvenue, un nombre alétoire a été généré entre 1 et 100
+                Vous avez 10 essais pour le trouver !
+                A chaque tentative vous verez s'afficher si vous êtes 'Trop haut', 'Trop bas' ou si vous avez trouvé"
+
+    i <-- 1
+    Win <-- faux
+
+    Tant que ((Win = faux) et (i <= 10) )
+    {
+        Afficher "Tentative n°", i, ", Veuillez faire une proposition entre 1 et 100"
+        Saisir Saisie
+        Tant que (Saisie < 1) ou (Saisie > 100)
+            Afficher "Erreur, la proposition doit être un nombre entier entre 1 et 100"
+            Saisir Saisie
+        Fin Tant que
+        Propo <-- Entier de Saisie
+
+        Si Propo = SecretNB
+            Alors
+                Afficher "Félicitation, vous avez trouvé le nombre secret en ", i," essais"
+                Win <-- vrai
+            Sinon Si Propo > SecretNB
+                Alors
+                    Afficher "Trop haut"
+                Sinon
+                    Afficher "Trop bas"
+            Fsi
+        Fsi
+
+        i <-- i + 1
+    }
+
+    Si (Win = faux) alors Afficher "Dommage, vous n'avez plus de tentative, le nombre secret etait ",SecretNB
+    Fsi
+Fin

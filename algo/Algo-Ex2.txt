@@ -1,0 +1,74 @@
+Algorithme "Exercice 2 - Le mot à trouver"
+Variable : Numérique : EssaiTotal, LongSecret, i, j, TruePositionNB
+           CC : SecretWord, Saisie, Car1, Car2, TruePosition
+           Boolean : SaisieOk, Finish
+Début
+    saisieOk <-- Faux
+
+    Afficher "Bonjour joueur 1"
+
+    Répéter
+        Afficher "Veuillez saisir un mot d'une longueur supérieur à 3 caratères"
+        Saisir SecretWord
+        Tant que (longueur de SecretWord <= 3)
+            Afficher "Erreur, Veuillez saisir un mot d'une longueur supérieur à 3 caratères"
+            Saisir SecretWord
+        FinTanque
+
+        Afficher "Le mot secret est " , SecretWord , ", Confirmez vous? (Oui/Non)"
+        Saisir Saisie
+        Tant que ((Saisie != "oui") && (Saisie != "non"))
+            Afficher "Erreur de saisie, Le mot secret est " , SecretWord , ", Confirmez vous? (Oui/Non)"
+            Saisir Saisie
+        FinTanque
+
+        Si Saisie = "oui" alors SaisieOk = Vrai
+        Fsi
+    jusqu'à (saisieOk = Vrai)
+
+    LongSecret <-- longueur de SecretWord
+    EssaiTotal <-- LongSecret-2
+
+    Afficher "Bonjour joueur 2, vous avez " , EssaiTotal , " essais pour trouver le mot d'une longueur de " , LongSecret , " caractères choisi par le joueur 1"
+
+    i=1
+    Finish = Faux
+    Tant que (i<=EssaiTotal) && (Finish = Faux)
+        Afficher "Essaie n°" , i , ", Veuillez faire une proposition de mot d'une longueur de " , LongSecret , " caractères"
+        Saisir Saisie
+
+        Tant que (Longueur de saisie != LongSecret) && (Saisie != "sol")
+            Afficher "Erreur de saisie, Essaie n°" , i , ", Veuillez faire une proposition de mot d'une longueur de " , LongSecret , " caratères"
+            Saisir Saisie
+        FinTanque
+
+        Si(Saisie = "sol")
+            Alors
+                Afficher "Le mot secret était ", SecretWord
+                Finish = Vrai
+            Sinon si(Saisie = SecretWord)
+                Alors
+                    Afficher "Félicitation le mot etait bien " , Saisie , ", vous avez trouvez en " , i , " essais"
+                    Finish = Vrai
+                Sinon
+                    TruePosition = "";
+                    TruePositionNB = 0;
+
+                    Pour j allant de 1 à longueur de saisie
+                        Car1 = extraction(Saisie,j,1)
+                        Car2 = extraction(SecretWord,j,1)
+
+                        Si(Car1 = Car2)
+                            Alors
+                                TruePosition = TruePosition,Car1," "
+                                TruePositionNB = TruePositionNB + 1
+                            Sinon TruePosition = TruePosition,"_ "
+                        Fsi
+                    FinPour
+
+                    Afficher "Vous avez " , TruePositionNB , " lettres en communnes et bien placées, les voici : " , TruePosition
+            Fsi
+        Fsi
+    FinTanque
+    Si(Finish = Faux) Alors Afficher "Dommage, vous n'avez plus de tentative, le mot mystère était " , SecretWord
+Fin
